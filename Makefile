@@ -16,15 +16,19 @@ down:
 .terraform/providers:
 	$(TERRAFORM) init
 
-.PHONY: apply
-apply: up .terraform/providers
+.PHONY: apply-approve
+apply-approve: up .terraform/providers
 	VAULT_ADDR=http://localhost:8200 VAULT_TOKEN=development $(TERRAFORM) apply -auto-approve
 
+.PHONY: apply
+apply: up .terraform/providers
+	VAULT_ADDR=http://localhost:8200 VAULT_TOKEN=development $(TERRAFORM) apply
+
 .PHONY: e2e
-e2e: down apply
+e2e: down apply-approve
 
 .PHONY: clean
 clean:
 	$(DOCKER_COMPOSE) down --rmi=all
 	rm -rf .terraform
-	rm -f terraform.tfstate
+	rm -f terraform.tfstate terraform.tfstate.backup

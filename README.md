@@ -33,10 +33,47 @@ Then initialize the Terraform modules:
 terraform init
 ```
 
-And then apply the resources:
+And then apply the resources once:
 
 ```sh
 terraform apply
+```
+
+Then if you apply the resources again, Terraform should say that
+`jwt_validation_pubkeys` has changed:
+
+```
+Terraform will perform the following actions:
+
+  # vault_jwt_auth_backend.kubernetes will be updated in-place
+  ~ resource "vault_jwt_auth_backend" "kubernetes" {
+        id                     = "kubernetes"
+      ~ jwt_validation_pubkeys = [
+          - <<-EOT
+                -----BEGIN PUBLIC KEY-----
+                MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwlsVQKeOENRE8U7uBvcB
+                bgfyxIkmVZyAd8UCKyav7ET+Q0DZW+Iv63mMbnRXdfpK8so3gZ6ybz3hXBEILrXB
+                Fnu0mR9VCe6V16eBAX2H85cqfqn9+0Q/OK0eUhcKkGNJxiVySj+dMqpMBYKBMpXD
+                xDqz0bFCqFqmhgvyEhYOi1lj3T+TXMHxLNV7aLBHHJHDgmGw5pVbSbU5srcwbBCb
+                DfzdwCDZZtoNjEzpmIKJiP0czbL8CEr6H7lFfgBdLJ17JZ9kd7vnith98cgvL/yd
+                T2fpmows467Qrr1WWZnaD9U274OmfqGwFKMKFawtFfpwhqdFp4vq4nOdEcOCvKMl
+                KQIDAQAB
+                -----END PUBLIC KEY-----
+            EOT,
+          + <<-EOT
+                -----BEGIN PUBLIC KEY-----
+                MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwlsVQKeOENRE8U7uBvcB
+                bgfyxIkmVZyAd8UCKyav7ET+Q0DZW+Iv63mMbnRXdfpK8so3gZ6ybz3hXBEILrXB
+                Fnu0mR9VCe6V16eBAX2H85cqfqn9+0Q/OK0eUhcKkGNJxiVySj+dMqpMBYKBMpXD
+                xDqz0bFCqFqmhgvyEhYOi1lj3T+TXMHxLNV7aLBHHJHDgmGw5pVbSbU5srcwbBCb
+                DfzdwCDZZtoNjEzpmIKJiP0czbL8CEr6H7lFfgBdLJ17JZ9kd7vnith98cgvL/yd
+                T2fpmows467Qrr1WWZnaD9U274OmfqGwFKMKFawtFfpwhqdFp4vq4nOdEcOCvKMl
+                KQIDAQAB
+                -----END PUBLIC KEY-----
+            EOT,
+        ]
+        # (11 unchanged attributes hidden)
+    }
 ```
 
 ## Rapid testing
