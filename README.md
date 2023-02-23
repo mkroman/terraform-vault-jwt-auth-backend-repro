@@ -39,6 +39,21 @@ And then apply the resources:
 terraform apply
 ```
 
+## Rapid testing
+
+Since the provider ends up mounting the auth engine at the expected path even
+when it fails, I've added a `Makefile` with an `e2e` job for quickly recreating
+and testing against Vault.
+
+To recreate and apply the resources, run:
+
+```sh
+make e2e
+```
+
+This will destroy the Vault container, recreate it, and then run
+`terraform apply -auto-approve`.
+
 ## Cleaning up
 
 To remove the Vault container and its contents, run:
