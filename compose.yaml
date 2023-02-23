@@ -1,0 +1,12 @@
+services:
+  vault:
+    image: vault:1.12.3
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: development
+    healthcheck:
+      test: ["CMD", "vault", "status", "-address=http://127.0.0.1:8200"]
+      interval: 1s
+      timeout: 5s
+      retries: 120
+    ports:
+    - 8200:8200
